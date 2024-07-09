@@ -58,5 +58,5 @@ jobs:
             cd build
             pwd
             qmake ../snake.pro -spec win32-msvc "CONFIG+=release"
-            ming32-make
+            mingw32-make
 
