@@ -42,4 +42,5 @@ jobs:
         with:
             name: Snake
             path: |
-              build/release/*
+              build/release/Snake.exe
+              build/release/*.dll
