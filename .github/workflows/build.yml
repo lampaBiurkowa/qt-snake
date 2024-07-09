@@ -34,22 +34,15 @@ jobs:
           host: 'windows'
           archives: 'qtbase qtdeclarative qttools'
 
+      - name: Set up MinGW
+        uses: egor-tensin/setup-mingw@v2
+        with:
+            platform: x64
       - name: Set QTDIR and QtToolsPath
         shell: bash
         run: |
           echo "QTDIR=$QT_ROOT_DIR" >> "$GITHUB_ENV"
           echo "QtToolsPath=$QT_ROOT_DIR/bin" >> "$GITHUB_ENV"
-
-      - name: Install GCC for Windows
-        run: |
-            curl -L -o mingw-w64-install.exe https://sourceforge.net/projects/mingw-w64/files/latest/download
-
-            ./mingw-w64-install.exe -y -d C:\mingw
-
-            del mingw-w64-install.exe
-
-            $newPath = "C:\mingw\mingw64\bin;C:\mingw\mingw64\x86_64-w64-mingw32\bin"
-            $env:Path = $newPath + ";" + [Environment]::GetEnvironmentVariable("Path", "Machine")
 
       - name: Configure and Build
         if: matrix.os == 'ubuntu-latest'
