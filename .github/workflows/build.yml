@@ -21,13 +21,13 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v2
 
-      - name: Set up Qt
-        if: matrix.os == 'ubuntu-latest'
-        uses: jurplel/install-qt-action@v4
-        with:
-          version: '5.15.2'
-          host: 'linux'
-          archives: 'qtbase qtdeclarative qttools'
+    #   - name: Set up Qt
+    #     if: matrix.os == 'ubuntu-latest'
+    #     uses: jurplel/install-qt-action@v4
+    #     with:
+    #       version: '5.15.2'
+    #       host: 'linux'
+    #       archives: 'qtbase qtdeclarative qttools'
 
       - name: Set up Qt
         if: matrix.os == 'windows-latest'
@@ -44,17 +44,17 @@ jobs:
       - name: "Setup"
         run: |
           gcc --version
-      - name: Set QTDIR and QtToolsPath
-        shell: bash
-        run: |
-          echo "QTDIR=$QT_ROOT_DIR" >> "$GITHUB_ENV"
-          echo "QtToolsPath=$QT_ROOT_DIR/bin" >> "$GITHUB_ENV"
+    #   - name: Set QTDIR and QtToolsPath
+    #     shell: bash
+    #     run: |
+    #       echo "QTDIR=$QT_ROOT_DIR" >> "$GITHUB_ENV"
+    #       echo "QtToolsPath=$QT_ROOT_DIR/bin" >> "$GITHUB_ENV"
 
-      - name: Configure and Build
-        if: matrix.os == 'ubuntu-latest'
-        run: |
-          qmake -makefile
-          make
+    #   - name: Configure and Build
+    #     if: matrix.os == 'ubuntu-latest'
+    #     run: |
+    #       qmake -makefile
+    #       make
 
           
       - name: Configure and Build
