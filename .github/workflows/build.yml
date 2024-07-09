@@ -63,6 +63,6 @@ jobs:
             mkdir build
             cd build
             pwd
-            qmake ../snake.pro -spec win32-msvc "CONFIG+=release"
+            qmake ../snake.pro
             mingw32-make
 
