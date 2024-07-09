@@ -31,13 +31,14 @@ jobs:
             pwd
             qmake ../snake.pro
             mingw32-make
+            ls
 
-      - name: Package artifacts
-        run: |
-          Compress-Archive -Path ./build -DestinationPath Snake.zip
+    #   - name: Package artifacts
+    #     run: |
+    #       Compress-Archive -Path ./build -DestinationPath Snake.zip
 
       - name: Upload artifact
         uses: actions/upload-artifact@v2
         with:
             name: Snake
-            path: Snake.zip
+            path: build/Snake
