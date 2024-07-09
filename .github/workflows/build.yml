@@ -34,9 +34,7 @@ jobs:
       - name: Deploy DLLs
         run: |
           cd build/release
-          windeployqt --release --no-translations --no-angle --no-opengl-sw Snake.exe
-          mkdir platforms
-          cp -r $QTDIR/plugins/platforms/* platforms/
+          windeployqt --no-translations --no-angle --no-opengl-sw Snake.exe
           
       - name: Upload artifact
         uses: actions/upload-artifact@v2
@@ -44,5 +42,4 @@ jobs:
             name: Snake
             path: |
               build/*.dll
-              build/platforms
               build/release/Snake.exe
