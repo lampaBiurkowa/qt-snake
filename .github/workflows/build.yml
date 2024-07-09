@@ -40,12 +40,22 @@ jobs:
           echo "QTDIR=$QT_ROOT_DIR" >> "$GITHUB_ENV"
           echo "QtToolsPath=$QT_ROOT_DIR/bin" >> "$GITHUB_ENV"
 
+      - name: Install Visual Studio Build Tools
+        run: |
+          choco install visualstudio2019buildtools --package-parameters "--add Microsoft.VisualStudio.Component.VC.Tools.x86.x64"
+    
+      - name: Configure MSVC environment
+        shell: cmd
+        run: |
+          call "C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Auxiliary\Build\vcvars64.bat"
+    
       - name: Configure and Build
         if: matrix.os == 'ubuntu-latest'
         run: |
           qmake -makefile
           make
 
+          
       - name: Configure and Build
         if: matrix.os == 'windows-latest'
         run: |
