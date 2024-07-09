@@ -34,8 +34,7 @@ jobs:
 
       - name: Package artifacts
         run: |
-            cd build
-            zip -r ../Snake.zip .
+          Compress-Archive -Path ./build -DestinationPath Snake.zip
 
       - name: Upload artifact
         uses: actions/upload-artifact@v2
