@@ -7,12 +7,7 @@ on:
 
 jobs:
   build:
-    runs-on: ${{ matrix.os }}
-
-    strategy:
-      matrix:
-        os: [windows-latest]
-        compiler: [gcc]
+    runs-on: windows-latest
 
     defaults:
       run:
@@ -20,14 +15,6 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
-
-    #   - name: Set up Qt
-    #     if: matrix.os == 'ubuntu-latest'
-    #     uses: jurplel/install-qt-action@v4
-    #     with:
-    #       version: '5.15.2'
-    #       host: 'linux'
-    #       archives: 'qtbase qtdeclarative qttools'
 
       - name: Set up Qt
         if: matrix.os == 'windows-latest'
@@ -38,26 +25,6 @@ jobs:
           archives: 'qtbase qtdeclarative qttools'
           arch: 'win64_mingw81'
 
-    #   - name: Set up MinGW
-    #     uses: egor-tensin/setup-mingw@v2
-    #     with:
-    #         platform: x64
-      - name: "Setup"
-        run: |
-          gcc --version
-    #   - name: Set QTDIR and QtToolsPath
-    #     shell: bash
-    #     run: |
-    #       echo "QTDIR=$QT_ROOT_DIR" >> "$GITHUB_ENV"
-    #       echo "QtToolsPath=$QT_ROOT_DIR/bin" >> "$GITHUB_ENV"
-
-    #   - name: Configure and Build
-    #     if: matrix.os == 'ubuntu-latest'
-    #     run: |
-    #       qmake -makefile
-    #       make
-
-          
       - name: Configure and Build
         if: matrix.os == 'windows-latest'
         run: |
@@ -67,3 +34,13 @@ jobs:
             qmake ../snake.pro
             mingw32-make
 
+      - name: Package artifacts
+        run: |
+            cd build
+            zip -r ../Snake.zip .
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v2
+        with:
+            name: Snake
+            path: Snake.zip
