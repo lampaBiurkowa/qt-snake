@@ -1,0 +1,51 @@
+name: Build Qt Project
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        compiler: [gcc, msvc]
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Set up Qt
+        if: matrix.os == 'ubuntu-latest'
+        uses: jurplel/install-qt-action@v4
+        with:
+          version: '5.15.2'
+          host: 'linux'
+          modules: 'qtbase qtdeclarative qttools'
+
+      - name: Set up Qt
+        if: matrix.os == 'windows-latest'
+        uses: jurplel/install-qt-action@v4
+        with:
+          version: '5.15.2'
+          host: 'windows'
+          modules: 'qtbase qtdeclarative qttools'
+
+      - name: Configure and Build
+        if: matrix.os == 'ubuntu-latest'
+        run: |
+          qmake -makefile
+          make
+
+      - name: Configure and Build
+        if: matrix.os == 'windows-latest'
+        run: |
+          qmake -tp vc
+          nmake
+
