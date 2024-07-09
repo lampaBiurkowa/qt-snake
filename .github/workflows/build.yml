@@ -42,12 +42,10 @@ jobs:
 
       - name: Install GCC for Windows
         run: |
-          choco install mingw --package-parameters "--version=10.3.0 --params='\"-shared\"'"
-    
-      - name: Set GCC environment
-        run: |
-          export PATH="/c/Program Files/mingw-w64/x86_64-10.3.0-posix-seh-rt_v6-rev0/mingw64/bin:$PATH"
-    
+          curl -L -o mingw.zip https://sourceforge.net/projects/mingw-w64/files/Toolchains%20targetting%20Win32/Personal%20Builds/mingw-builds/installer/mingw-w64-install.exe/download
+          7z x mingw.zip -oC:/mingw --yes
+          export PATH="/c/mingw/mingw32/bin:$PATH"
+
       - name: Configure and Build
         if: matrix.os == 'ubuntu-latest'
         run: |
