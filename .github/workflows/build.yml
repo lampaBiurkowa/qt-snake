@@ -43,7 +43,8 @@ jobs:
       - name: Install GCC for Windows
         run: |
           curl -L -o mingw.zip https://sourceforge.net/projects/mingw-w64/files/Toolchains%20targetting%20Win32/Personal%20Builds/mingw-builds/installer/mingw-w64-install.exe/download
-          7z x mingw.zip -oC:/mingw --yes
+          7z x mingw.zip -oC:/mingw
+          del mingw.zip
           $env:PATH = "C:\mingw\mingw32\bin;$env:PATH"
 
       - name: Configure and Build
