@@ -31,7 +31,11 @@ jobs:
             pwd
             qmake ../snake.pro
             mingw32-make
-            
+      - name: Deploy DLLs
+        run: |
+          cd build/release
+          windeployqt --release --no-translations --no-angle --no-opengl-sw your_executable.exe
+          
       - name: Upload artifact
         uses: actions/upload-artifact@v2
         with:
