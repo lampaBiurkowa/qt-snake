@@ -35,9 +35,14 @@ jobs:
         run: |
           cd build/release
           windeployqt --release --no-translations --no-angle --no-opengl-sw Snake.exe
+          mkdir platforms
+          cp -r $QTDIR/plugins/platforms/* platforms/
           
       - name: Upload artifact
         uses: actions/upload-artifact@v2
         with:
             name: Snake
-            path: build/release/Snake.exe
+            path: |
+              build/*.dll
+              build/platforms
+              build/release/Snake.exe
