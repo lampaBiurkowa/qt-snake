@@ -35,6 +35,7 @@ jobs:
         run: |
           cd build/release
           windeployqt --no-translations --no-angle --no-opengl-sw Snake.exe
+          ls
           
       - name: Upload artifact
         uses: actions/upload-artifact@v2
