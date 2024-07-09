@@ -42,10 +42,14 @@ jobs:
 
       - name: Install GCC for Windows
         run: |
-          curl -L -o mingw.zip https://sourceforge.net/projects/mingw-w64/files/Toolchains%20targetting%20Win32/Personal%20Builds/mingw-builds/installer/mingw-w64-install.exe/download
-          7z x mingw.zip -oC:/mingw
-          del mingw.zip
-          $env:PATH = "C:\mingw\mingw32\bin;$env:PATH"
+            curl -L -o mingw-w64-install.exe https://sourceforge.net/projects/mingw-w64/files/latest/download
+
+            ./mingw-w64-install.exe -y -d C:\mingw
+
+            del mingw-w64-install.exe
+
+            $newPath = "C:\mingw\mingw64\bin;C:\mingw\mingw64\x86_64-w64-mingw32\bin"
+            $env:Path = $newPath + ";" + [Environment]::GetEnvironmentVariable("Path", "Machine")
 
       - name: Configure and Build
         if: matrix.os == 'ubuntu-latest'
