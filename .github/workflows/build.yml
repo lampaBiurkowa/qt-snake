@@ -44,5 +44,5 @@ jobs:
         if: matrix.os == 'windows-latest'
         run: |
           qmake -tp vc
-          nmake
+          make
 
