@@ -12,7 +12,7 @@ jobs:
     strategy:
       matrix:
         os: [windows-latest]
-        compiler: [msvc, gcc]
+        compiler: [gcc]
 
     steps:
       - name: Checkout Repository
@@ -40,14 +40,13 @@ jobs:
           echo "QTDIR=$QT_ROOT_DIR" >> "$GITHUB_ENV"
           echo "QtToolsPath=$QT_ROOT_DIR/bin" >> "$GITHUB_ENV"
 
-      - name: Install Visual Studio Build Tools
+      - name: Install GCC for Windows
         run: |
-          choco install visualstudio2019buildtools --package-parameters "--add Microsoft.VisualStudio.Component.VC.Tools.x86.x64"
+          choco install mingw --package-parameters "--version=10.3.0 --params='\"-shared\"'"
     
-      - name: Configure MSVC environment
-        shell: cmd
+      - name: Set GCC environment
         run: |
-          call "C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Auxiliary\Build\vcvars64.bat"
+          export PATH="/c/Program Files/mingw-w64/x86_64-10.3.0-posix-seh-rt_v6-rev0/mingw64/bin:$PATH"
     
       - name: Configure and Build
         if: matrix.os == 'ubuntu-latest'
@@ -63,5 +62,5 @@ jobs:
             cd build
             pwd
             qmake ../snake.pro -spec win32-msvc "CONFIG+=release"
-            nmake
+            ming32-make
 
