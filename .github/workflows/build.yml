@@ -44,3 +44,4 @@ jobs:
             path: |
               build/release/Snake.exe
               build/release/*.dll
+              build/release/platforms/**
