@@ -158,6 +158,7 @@ void Snake::placeFood() {
 }
 
 void Snake::drawBoard(QPainter &qp) {
+    qp.fillRect(rect(), QColor(20, 20, 20));
     if (inGame == Game) {
         qp.setBrush(Qt::red);
         qp.drawRect(food.x * UNIT_SIZE, food.y * UNIT_SIZE, UNIT_SIZE, UNIT_SIZE);
@@ -189,6 +190,7 @@ void Snake::drawBoard(QPainter &qp) {
 }
 
 void Snake::drawMenu(QPainter &qp) {
+    qp.fillRect(rect(), QColor(20, 20, 20));
     QBrush brush(Qt::darkCyan, Qt::FDiagPattern);
     qp.setBrush(brush);
     qp.drawRect(rect());
@@ -207,6 +209,7 @@ void Snake::drawMenu(QPainter &qp) {
 }
 
 void Snake::drawGameOver(QPainter &qp) {
+    qp.fillRect(rect(), QColor(20, 20, 20));
     QStringList lines;
     lines << "Game Over"
           << ""
@@ -217,6 +220,7 @@ void Snake::drawGameOver(QPainter &qp) {
 
     QFont font("Courier", 15, QFont::DemiBold);
     qp.setFont(font);
+    qp.setPen(Qt::white);
     qp.drawText(rect(), Qt::AlignCenter, lines.join("\n"));
 }
 
