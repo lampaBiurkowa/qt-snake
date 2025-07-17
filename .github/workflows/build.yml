@@ -45,3 +45,4 @@ jobs:
               build/release/Snake.exe
               build/release/*.dll
               build/release/platforms/**
+              build/release/styles/**
